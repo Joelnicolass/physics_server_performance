@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bnaapuhpxx7s5"]
+[gd_scene load_steps=9 format=3 uid="uid://bnaapuhpxx7s5"]
 
 [ext_resource type="PackedScene" uid="uid://bodw3ts72pxht" path="res://entity.tscn" id="1_c7s6e"]
+[ext_resource type="PackedScene" uid="uid://bh6k3vuycu1i2" path="res://player.tscn" id="1_p5pve"]
 [ext_resource type="PackedScene" uid="uid://bjc2n43fs55as" path="res://spawner.tscn" id="1_wijl4"]
 [ext_resource type="Script" uid="uid://m3blcfkr02wd" path="res://fps.gd" id="3_e0an3"]
 
@@ -18,10 +19,14 @@ size = Vector2(88, 673)
 
 [node name="Map" type="Node2D"]
 
+[node name="Player" parent="." instance=ExtResource("1_p5pve")]
+position = Vector2(300, 451)
+SPEED = 500.0
+
 [node name="Spawner" parent="." instance=ExtResource("1_wijl4")]
 position = Vector2(563, 36)
 max_spawn = 1000
-spawn_interval = 0.005
+spawn_interval = 0.5
 spawn_item = ExtResource("1_c7s6e")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
