@@ -32,9 +32,20 @@ func _ready():
     
     # Set the body mode to Rigid
     ps.body_set_mode(object, PhysicsServer2D.BODY_MODE_RIGID_LINEAR)
+    # Set gravity scale to 0
     ps.body_set_param(object, PhysicsServer2D.BODY_PARAM_GRAVITY_SCALE, 0.0)
+    
+    # Set collision mask and layer
+    ps.body_set_collision_layer(object, 1)
+    ps.body_set_collision_mask(object, 1)
 
+    # Set the body to be able to collide with other bodies
     target = get_tree().current_scene.get_node("Player")
+
+    # Set the body to be able to collide with other bodies
+    await get_tree().process_frame
+    PhysicsServer2D.body_attach_object_instance_id(object, get_instance_id())
+
 
     await get_tree().create_timer(0.2).timeout
     color_rect.color = Color(randf(), randf(), randf())
@@ -54,3 +65,11 @@ func _physics_process(_delta):
     # Update the position of the body
     var trans: Transform2D = PhysicsServer2D.body_get_state(object, PhysicsServer2D.BODY_STATE_TRANSFORM)
     global_transform = trans
+
+
+func die():
+    can_move = false
+    call_deferred("queue_free")
+
+func _exit_tree() -> void:
+    PhysicsServer2D.free_rid(object)
