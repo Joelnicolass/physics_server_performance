@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://bnaapuhpxx7s5"]
+
+[ext_resource type="PackedScene" uid="uid://bodw3ts72pxht" path="res://entity.tscn" id="1_c7s6e"]
+[ext_resource type="PackedScene" uid="uid://bjc2n43fs55as" path="res://spawner.tscn" id="1_wijl4"]
+[ext_resource type="Script" uid="uid://m3blcfkr02wd" path="res://fps.gd" id="3_e0an3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c7s6e"]
+size = Vector2(1221.5, 78)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wijl4"]
+size = Vector2(66, 668)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e0an3"]
+size = Vector2(72, 683)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p5pve"]
+size = Vector2(88, 673)
+
+[node name="Map" type="Node2D"]
+
+[node name="Spawner" parent="." instance=ExtResource("1_wijl4")]
+position = Vector2(563, 36)
+max_spawn = 1000
+spawn_interval = 0.005
+spawn_item = ExtResource("1_c7s6e")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(574.25, 630)
+shape = SubResource("RectangleShape2D_c7s6e")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(568, 640)
+shape = SubResource("RectangleShape2D_wijl4")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1154, 336)
+shape = SubResource("RectangleShape2D_e0an3")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(34, 326.5)
+shape = SubResource("RectangleShape2D_p5pve")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FPS" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "FPS COUNT"
+script = ExtResource("3_e0an3")
